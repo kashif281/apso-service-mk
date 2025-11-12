@@ -1,0 +1,157 @@
+{
+  "entities": [
+    {
+      "name": "Survey",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "is_active",
+          "type": "boolean",
+          "nullable": false,
+          "default": true
+        },
+        {
+          "name": "created_by",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp",
+          "nullable": false
+        },
+        {
+          "name": "updated_by",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "updated_at",
+          "type": "timestamp",
+          "nullable": true
+        }
+      ],
+      "indexes": [],
+      "uniques": []
+    },
+    {
+      "name": "Question",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "text",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "type",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "survey_id",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "survey_id"
+          ],
+          "unique": false
+        }
+      ],
+      "uniques": []
+    },
+    {
+      "name": "Response",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "value",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "question_id",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "question_id"
+          ],
+          "unique": false
+        }
+      ],
+      "uniques": []
+    },
+    {
+      "name": "Analytics",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "survey_id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "question_id",
+          "type": "bigint",
+          "nullable": false
+        },
+        {
+          "name": "response_id",
+          "type": "bigint",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "survey_id",
+            "question_id",
+            "response_id"
+          ],
+          "unique": false
+        }
+      ],
+      "uniques": []
+    }
+  ],
+  "relationships": [
+    {
+      "from": "Survey",
+      "to": "Question",
+      "type": "OneToMany"
+    },
+    {
+      "from": "Question",
+      "to": "Response",
+      "type": "OneToMany"
+    },
+    {
+      "from": "Survey",
+      "to": "Analytics",
+      "type": "OneToMany"
+    }
+  ],
+  "_removedEntities": []
+}
